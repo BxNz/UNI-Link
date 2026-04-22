@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script src="config.js"></script>
+
+  <script>
+    function redirectToStore() {
+      const iosLink = CONFIG.ios;
+      const androidLink = CONFIG.android;
+
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      // iPhone / iPad
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        window.location.href = iosLink;
+      }
+      // Android
+      else if (/android/i.test(userAgent)) {
+        window.location.href = androidLink;
+      }
+      // อื่น ๆ (PC / Desktop)
+      else {
+        window.location.href = iosLink; // หรือทำหน้าเลือกเองก็ได้
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+
+<body onload="redirectToStore()">
+  <h2>Redirecting to app store...</h2>
+  <p>If not redirected, click below:</p>
+
+  <a id="ios" href="#">Download for iOS</a><br><br>
+  <a id="android" href="#">Download for Android</a>
+
+  <script>
+    document.getElementById("ios").href = CONFIG.ios;
+    document.getElementById("android").href = CONFIG.android;
+  </script>
+</body>
+</html>
